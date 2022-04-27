@@ -26,4 +26,6 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 1;
     }
+
+
 }
