@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Neighbour API client
  */
-public interface NeighbourApiService {
+public interface NeighbourRepository {
 
     /**
      * Get all my Neighbours
@@ -28,4 +28,5 @@ public interface NeighbourApiService {
      */
     void createNeighbour(Neighbour neighbour);
 
+    Neighbour getNeighbourByID(long id);
 }

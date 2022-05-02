@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +38,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.create)
     MaterialButton addButton;
 
-    private NeighbourApiService mApiService;
+    private NeighbourRepository mApiService;
     private String mNeighbourImage;
 
     @Override

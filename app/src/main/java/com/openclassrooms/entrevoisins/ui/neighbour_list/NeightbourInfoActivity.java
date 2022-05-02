@@ -1,35 +1,35 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.service.DummyNeighbourRepository;
+import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
-import java.util.List;
+public class NeightbourInfoActivity extends AppCompatActivity  {
 
-public class NeightbourInfoActivity extends AppCompatActivity {
+    private static final String ARGS_NEIGHBOURID = "ARGS_NEIGHBOURID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neightbour_info);
+        Log.i("OUI", String.valueOf(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)));
+        NeighbourRepository neighbourRepository = DI.getNeighbourApiService();
+        Log.i("OUI", neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).toString());
+        
+    }
+
+    public static Intent navigate(Context c, long id) {
+        Intent intent = new Intent(c, NeightbourInfoActivity.class);
+        intent.putExtra(ARGS_NEIGHBOURID, id);
+        return intent;
     }
 
 }

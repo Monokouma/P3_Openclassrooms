@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class NeighbourServiceTest {
 
-    private NeighbourApiService service;
+    private NeighbourRepository service;
 
     @Before
     public void setup() {

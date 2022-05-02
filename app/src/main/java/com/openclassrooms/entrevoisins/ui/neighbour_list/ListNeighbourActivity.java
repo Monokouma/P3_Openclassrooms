@@ -1,10 +1,11 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ListNeighbourActivity extends AppCompatActivity {
+public class ListNeighbourActivity extends AppCompatActivity implements MyNeighbourRecyclerViewAdapter.OnNeightBourListener {
 
     // UI Components
     @BindView(R.id.tabs)
@@ -41,10 +42,14 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     }
 
-
-
     @OnClick(R.id.add_neighbour)
     void addNeighbour() {
         AddNeighbourActivity.navigate(this);
     }
+
+    @Override
+    public void onNeighbourClick(long id) {
+        ActivityCompat.startActivity(this, NeightbourInfoActivity.navigate(this, id), null);
+    }
+
 }
