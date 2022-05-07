@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,12 +34,13 @@ public class NeightbourInfoActivity extends AppCompatActivity  {
         NeighbourRepository neighbourRepository = DI.getNeighbourApiService();
         ImageView profileImage = findViewById(R.id.toolbarImage);
         CollapsingToolbarLayout titleInToolbar = findViewById(R.id.collapsingToolbar);
-        TextView titleInInfoStackView = findViewById(R.id.neighbourName);
-        TextView neighbourAdress = findViewById(R.id.neighbourAdress);
-        TextView neighbourPhoneNumber = findViewById(R.id.neighbourPhoneNumber);
-        TextView neighbourFacebookLink = findViewById(R.id.neighbourFacebookLink);
+        TextView titleInInfoStackView = findViewById(R.id.neighbour_info_text_field_neighbour_name_in_cardview);
+        TextView neighbourAdress = findViewById(R.id.neighbour_info_cardview_adress);
+        TextView neighbourPhoneNumber = findViewById(R.id.neighbour_info_cardview_phone_number);
+        TextView neighbourFacebookLink = findViewById(R.id.neighbour_info_cardview_link);
         TextView neighbourAboutMe = findViewById(R.id.neighbourAboutMe);
         FloatingActionButton addToFavoriteButton = findViewById(R.id.addToFavoriteButton);
+        TextView tamere = findViewById(R.id.neighbour_info_back_button);
 
         titleInToolbar.setTitle(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getName());
         Glide.with(this).load(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getAvatarUrl()).placeholder(R.drawable.ic_account)
@@ -48,6 +51,16 @@ public class NeightbourInfoActivity extends AppCompatActivity  {
         neighbourFacebookLink.setText("www.facebook.fr/"+ neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getName().toLowerCase(Locale.ROOT));
         neighbourAboutMe.setText(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getAboutMe());
 
+
+        addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                neighbourRepository.toggleNeighbourFavorite(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getId());
+            }
+        });
+    }
+    public void onClick(View v) {
+        Log.i("Monokouma", "clicked");
     }
 
     public static Intent navigate(Context c, long id) {
@@ -55,7 +68,4 @@ public class NeightbourInfoActivity extends AppCompatActivity  {
         intent.putExtra(ARGS_NEIGHBOURID, id);
         return intent;
     }
-
-
-
 }

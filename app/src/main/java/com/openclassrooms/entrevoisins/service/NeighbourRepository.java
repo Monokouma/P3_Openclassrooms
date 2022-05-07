@@ -16,6 +16,8 @@ public interface NeighbourRepository {
      */
     List<Neighbour> getNeighbours();
 
+    List<Neighbour> getFavoriteNeighbours();
+
     /**
      * Deletes a neighbour
      * @param neighbour
@@ -29,4 +31,6 @@ public interface NeighbourRepository {
     void createNeighbour(Neighbour neighbour);
 
     Neighbour getNeighbourByID(long id);
+
+    void toggleNeighbourFavorite(long id);
 }

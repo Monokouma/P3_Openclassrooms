@@ -1,5 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -9,6 +11,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
     public ListNeighbourPagerAdapter(FragmentManager fm) {
         super(fm);
+
     }
 
     /**
@@ -16,7 +19,13 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        return NeighbourFragment.newInstance();
+        Log.i("Monokouma", String.valueOf(position));
+        if (position == 0) {
+            return NeighbourFragment.newInstance(true);
+        } else if (position == 1) {
+            return NeighbourFragment.newInstance(false);
+        }
+        return NeighbourFragment.newInstance(true);
     }
 
     /**
@@ -24,7 +33,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
 
 

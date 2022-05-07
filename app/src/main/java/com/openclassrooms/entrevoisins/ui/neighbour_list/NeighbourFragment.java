@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +30,18 @@ public class NeighbourFragment extends Fragment {
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
 
+    private static final String ARGS_IS_FAVORITE_MODE = "ARGS_IS_FAVORITE_MODE";
+
 
     /**
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
+    public static NeighbourFragment newInstance(boolean isFavoriteMode) {
         NeighbourFragment fragment = new NeighbourFragment();
+        Bundle arguments = new Bundle();
+        arguments.putBoolean(ARGS_IS_FAVORITE_MODE, isFavoriteMode);
+        fragment.setArguments(arguments);
         return fragment;
     }
 
@@ -60,9 +66,15 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, (MyNeighbourRecyclerViewAdapter.OnNeightBourListener) getActivity()));
+        boolean isFavoriteMode = getArguments().getBoolean(ARGS_IS_FAVORITE_MODE);
+        if (isFavoriteMode) {
+            mNeighbours = mApiService.getNeighbours();
+        } else {
+            mNeighbours = mApiService.getFavoriteNeighbours();
 
+        }
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, (MyNeighbourRecyclerViewAdapter.OnNeightBourListener) getActivity()));
+        Log.i("Monokouma", mApiService.getFavoriteNeighbours().toString());
     }
 
     @Override
