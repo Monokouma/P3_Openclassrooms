@@ -36,6 +36,11 @@ public class DummyNeighbourRepository implements NeighbourRepository {
         neighbours.remove(neighbour);
     }
 
+    @Override
+    public void deleteFavNeighbour(Neighbour neighbour) {
+        favNeightbours.remove(neighbour);
+    }
+
     /**
      * {@inheritDoc}
      * @param neighbour

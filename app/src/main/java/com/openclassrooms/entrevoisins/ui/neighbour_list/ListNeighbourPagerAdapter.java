@@ -19,13 +19,13 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        Log.i("Monokouma", String.valueOf(position));
+        boolean isNormalMode = true;
         if (position == 0) {
-            return NeighbourFragment.newInstance(true);
+            isNormalMode = true;
         } else if (position == 1) {
-            return NeighbourFragment.newInstance(false);
+            isNormalMode = false;
         }
-        return NeighbourFragment.newInstance(true);
+        return NeighbourFragment.newInstance(isNormalMode);
     }
 
     /**

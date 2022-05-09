@@ -99,7 +99,13 @@ public class NeighbourFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
+        boolean isFavoriteMode = getArguments().getBoolean(ARGS_IS_FAVORITE_MODE);
+        if (isFavoriteMode) {
+            mApiService.deleteNeighbour(event.neighbour);
+        } else {
+            mApiService.deleteFavNeighbour(event.neighbour);
+        }
+
         initList();
     }
 }

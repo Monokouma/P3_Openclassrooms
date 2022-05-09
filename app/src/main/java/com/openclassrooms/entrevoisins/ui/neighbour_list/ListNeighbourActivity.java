@@ -1,8 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -22,7 +20,7 @@ public class ListNeighbourActivity extends AppCompatActivity implements MyNeighb
     // UI Components
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
-    @BindView(R.id.toolbar)
+    @BindView(R.id.activity_neighbour_info_toolbar)
     Toolbar mToolbar;
     @BindView(R.id.container)
     ViewPager mViewPager;

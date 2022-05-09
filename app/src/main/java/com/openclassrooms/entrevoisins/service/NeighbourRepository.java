@@ -24,6 +24,8 @@ public interface NeighbourRepository {
      */
     void deleteNeighbour(Neighbour neighbour);
 
+    void deleteFavNeighbour(Neighbour neighbour);
+
     /**
      * Create a neighbour
      * @param neighbour
