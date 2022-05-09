@@ -32,7 +32,6 @@ public class NeighbourFragment extends Fragment {
 
     private static final String ARGS_IS_FAVORITE_MODE = "ARGS_IS_FAVORITE_MODE";
 
-
     /**
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
@@ -49,6 +48,8 @@ public class NeighbourFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
+
+
     }
 
     @Override
@@ -59,6 +60,7 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
         return view;
     }
 
@@ -100,10 +102,14 @@ public class NeighbourFragment extends Fragment {
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         boolean isFavoriteMode = getArguments().getBoolean(ARGS_IS_FAVORITE_MODE);
+
         if (isFavoriteMode) {
             mApiService.deleteNeighbour(event.neighbour);
-        } else {
+            Log.i("MonokoumaDelete", String.valueOf(isFavoriteMode + " oui"));
+        }
+        if (!isFavoriteMode) {
             mApiService.deleteFavNeighbour(event.neighbour);
+            Log.i("MonokoumaFav", String.valueOf(isFavoriteMode + " non"));
         }
 
         initList();

@@ -25,6 +25,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             isNormalMode = false;
         }
+
         return NeighbourFragment.newInstance(isNormalMode);
     }
 
