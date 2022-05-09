@@ -71,10 +71,8 @@ public class NeighbourFragment extends Fragment {
             mNeighbours = mApiService.getNeighbours();
         } else {
             mNeighbours = mApiService.getFavoriteNeighbours();
-
         }
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, (MyNeighbourRecyclerViewAdapter.OnNeightBourListener) getActivity()));
-        Log.i("Monokouma", mApiService.getFavoriteNeighbours().toString());
     }
 
     @Override

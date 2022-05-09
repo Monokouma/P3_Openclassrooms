@@ -13,7 +13,7 @@ import java.util.List;
 public class DummyNeighbourRepository implements NeighbourRepository {
 
     private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
-    private List<Neighbour> favNeightbours = new ArrayList<>();
+    private final List<Neighbour> favNeightbours = new ArrayList<>();
 
     /**
      * {@inheritDoc}
@@ -58,8 +58,6 @@ public class DummyNeighbourRepository implements NeighbourRepository {
 
     @Override
     public void toggleNeighbourFavorite(long id) {
-
-
         Neighbour favNeighbour = getNeighbourByID(id);
         favNeightbours.add(favNeighbour);
     }

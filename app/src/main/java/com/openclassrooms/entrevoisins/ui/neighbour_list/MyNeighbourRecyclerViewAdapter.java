@@ -2,6 +2,7 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.i("Monokouma","clicked");
                 onNeightBourListener.onNeighbourClick(neighbour.getId());
             }
         });

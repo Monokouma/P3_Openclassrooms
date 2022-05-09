@@ -21,11 +21,14 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.DummyNeighbourRepository;
 import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
+import java.util.List;
 import java.util.Locale;
 
 public class NeightbourInfoActivity extends AppCompatActivity  {
 
     private static final String ARGS_NEIGHBOURID = "ARGS_NEIGHBOURID";
+    private static Neighbour neighbour;
+    private List<Neighbour> mNeighbours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,6 @@ public class NeightbourInfoActivity extends AppCompatActivity  {
         TextView neighbourFacebookLink = findViewById(R.id.neighbour_info_cardview_link);
         TextView neighbourAboutMe = findViewById(R.id.neighbourAboutMe);
         FloatingActionButton addToFavoriteButton = findViewById(R.id.addToFavoriteButton);
-        TextView tamere = findViewById(R.id.neighbour_info_back_button);
 
         titleInToolbar.setTitle(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getName());
         Glide.with(this).load(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getAvatarUrl()).placeholder(R.drawable.ic_account)
@@ -50,17 +52,16 @@ public class NeightbourInfoActivity extends AppCompatActivity  {
         neighbourPhoneNumber.setText(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getPhoneNumber());
         neighbourFacebookLink.setText("www.facebook.fr/"+ neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getName().toLowerCase(Locale.ROOT));
         neighbourAboutMe.setText(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getAboutMe());
-
+        ;
+        Log.i("Monokouma", String.valueOf(neighbourRepository.getFavoriteNeighbours()));
 
         addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 neighbourRepository.toggleNeighbourFavorite(neighbourRepository.getNeighbourByID(getIntent().getLongExtra(ARGS_NEIGHBOURID, 0)).getId());
             }
         });
-    }
-    public void onClick(View v) {
-        Log.i("Monokouma", "clicked");
     }
 
     public static Intent navigate(Context c, long id) {
