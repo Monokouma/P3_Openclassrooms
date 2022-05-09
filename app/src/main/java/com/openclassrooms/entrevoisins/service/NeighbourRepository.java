@@ -18,6 +18,8 @@ public interface NeighbourRepository {
 
     List<Neighbour> getFavoriteNeighbours();
 
+    boolean isNeighbourFavorite(long id);
+
     /**
      * Deletes a neighbour
      * @param neighbour

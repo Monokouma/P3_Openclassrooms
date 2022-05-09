@@ -80,18 +80,18 @@ public class NeighbourFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initList();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+        Log.d("Nino", "onResume() called with fragment " + this);
+
+        initList();
+
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
+
         EventBus.getDefault().unregister(this);
     }
 
@@ -103,13 +103,12 @@ public class NeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         boolean isFavoriteMode = getArguments().getBoolean(ARGS_IS_FAVORITE_MODE);
 
+        Log.d("Nino", "onDeleteNeighbour() called with: event = [" + event + "]");
+
         if (isFavoriteMode) {
-            mApiService.deleteNeighbour(event.neighbour);
-            Log.i("MonokoumaDelete", String.valueOf(isFavoriteMode + " oui"));
-        }
-        if (!isFavoriteMode) {
             mApiService.deleteFavNeighbour(event.neighbour);
-            Log.i("MonokoumaFav", String.valueOf(isFavoriteMode + " non"));
+        } else {
+            mApiService.deleteNeighbour(event.neighbour);
         }
 
         initList();

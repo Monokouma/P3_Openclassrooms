@@ -28,6 +28,17 @@ public class DummyNeighbourRepository implements NeighbourRepository {
         return favNeightbours;
     }
 
+    @Override
+    public boolean isNeighbourFavorite(long id) {
+        for (Neighbour favNeightbour : favNeightbours) {
+            if (favNeightbour.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -64,6 +75,8 @@ public class DummyNeighbourRepository implements NeighbourRepository {
     @Override
     public void toggleNeighbourFavorite(long id) {
         Neighbour favNeighbour = getNeighbourByID(id);
+
+        // TODO Thomas
         favNeightbours.add(favNeighbour);
     }
 
