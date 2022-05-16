@@ -37,4 +37,6 @@ public interface NeighbourRepository {
     Neighbour getNeighbourByID(long id);
 
     void toggleNeighbourFavorite(long id);
+
+
 }

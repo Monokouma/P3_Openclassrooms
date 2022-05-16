@@ -28,17 +28,6 @@ public class DummyNeighbourRepository implements NeighbourRepository {
         return favNeightbours;
     }
 
-    @Override
-    public boolean isNeighbourFavorite(long id) {
-        for (Neighbour favNeightbour : favNeightbours) {
-            if (favNeightbour.getId() == id) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -77,7 +66,20 @@ public class DummyNeighbourRepository implements NeighbourRepository {
         Neighbour favNeighbour = getNeighbourByID(id);
 
         // TODO Thomas
-        favNeightbours.add(favNeighbour);
+        if (!isNeighbourFavorite(id)) {
+            favNeightbours.add(favNeighbour);
+        }
+
+    }
+
+    @Override
+    public boolean isNeighbourFavorite(long id) {
+        for (Neighbour favNeighbour : favNeightbours) {
+            if (favNeighbour.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
