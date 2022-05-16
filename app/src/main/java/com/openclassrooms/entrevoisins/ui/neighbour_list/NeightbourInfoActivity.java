@@ -88,6 +88,7 @@ public class NeightbourInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
+                    Log.i("Monokouma", String.valueOf(getPackageManager().getPackageInfo("com.facebook.katana", 0)));
                     getPackageManager().getPackageInfo("com.facebook.katana", 0);
                     Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
@@ -101,20 +102,16 @@ public class NeightbourInfoActivity extends AppCompatActivity {
                     } catch (android.content.ActivityNotFoundException anfe) {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.facebook.katana")));
                     }
-
                 }
-
             }
         });
 
         updateFavorite(neighbour, addToFavoriteButton);
 
         addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 neighbourRepository.toggleNeighbourFavorite(neighbour.getId());
-
                 updateFavorite(neighbour, addToFavoriteButton);
             }
         });
