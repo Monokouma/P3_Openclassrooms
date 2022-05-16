@@ -106,9 +106,12 @@ public class NeighbourFragment extends Fragment {
         Log.d("Nino", "onDeleteNeighbour() called with: event = [" + event + "]");
 
         if (isFavoriteMode) {
-            mApiService.deleteFavNeighbour(event.neighbour);
-        } else {
+            Log.i("Monokouma", "deleteNormal");
             mApiService.deleteNeighbour(event.neighbour);
+        } else {
+            Log.i("Monokouma", "deleteFav");
+            mApiService.deleteFavNeighbour(event.neighbour);
+
         }
 
         initList();

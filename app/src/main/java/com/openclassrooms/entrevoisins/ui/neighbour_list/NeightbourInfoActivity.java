@@ -2,6 +2,8 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -66,7 +68,42 @@ public class NeightbourInfoActivity extends AppCompatActivity {
         neighbourAdress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NeightbourInfoActivity.this, "on a cliqué sur l'addresse", Toast.LENGTH_SHORT).show();
+                String geoUri = "http://maps.google.com/maps?q=loc:" + neighbour.getAddress();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+                startActivity(intent);
+            }
+        });
+
+        neighbourPhoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + neighbour.getPhoneNumber()));
+                startActivity(intent);
+            }
+        });
+
+        neighbourFacebookLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    getPackageManager().getPackageInfo("com.facebook.katana", 0);
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT, "Text...");
+                    sharingIntent.setPackage("com.facebook.katana");
+                    startActivity(sharingIntent);
+                } catch (PackageManager.NameNotFoundException e) {
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.facebook.katana")));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.facebook.katana")));
+                    }
+
+                }
+
             }
         });
 

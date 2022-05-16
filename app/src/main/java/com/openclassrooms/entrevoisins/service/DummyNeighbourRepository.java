@@ -64,12 +64,10 @@ public class DummyNeighbourRepository implements NeighbourRepository {
     @Override
     public void toggleNeighbourFavorite(long id) {
         Neighbour favNeighbour = getNeighbourByID(id);
-
         // TODO Thomas
         if (!isNeighbourFavorite(id)) {
             favNeightbours.add(favNeighbour);
         }
-
     }
 
     @Override
