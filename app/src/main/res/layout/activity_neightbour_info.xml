@@ -36,6 +36,7 @@
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="pin"
                 tools:src="@tools:sample/avatars"
+                android:contentDescription="@string/avatar_picture"
                 />
 
             <androidx.appcompat.widget.Toolbar
@@ -227,6 +228,7 @@
         app:tint="#f5ce4d"
         app:layout_anchor="@id/activity_neighbour_info_appBar"
         app:layout_anchorGravity="bottom|end"
+        android:contentDescription="@string/add_neighbour_to_favorite_button"
         />
 
 

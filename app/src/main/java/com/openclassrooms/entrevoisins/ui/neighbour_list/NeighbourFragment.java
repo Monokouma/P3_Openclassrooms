@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +80,6 @@ public class NeighbourFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Log.d("Nino", "onResume() called with fragment " + this);
 
         initList();
 
@@ -103,17 +101,11 @@ public class NeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         boolean isFavoriteMode = getArguments().getBoolean(ARGS_IS_FAVORITE_MODE);
 
-        Log.d("Nino", "onDeleteNeighbour() called with: event = [" + event + "]");
-
         if (isFavoriteMode) {
-            Log.i("Monokouma", "deleteNormal");
             mApiService.deleteNeighbour(event.neighbour);
         } else {
-            Log.i("Monokouma", "deleteFav");
             mApiService.deleteFavNeighbour(event.neighbour);
-
         }
-
         initList();
     }
 }

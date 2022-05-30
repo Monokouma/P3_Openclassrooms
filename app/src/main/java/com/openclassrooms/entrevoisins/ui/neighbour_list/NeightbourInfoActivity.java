@@ -24,6 +24,7 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class NeightbourInfoActivity extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class NeightbourInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_neightbour_info);
 
         setSupportActionBar(findViewById(R.id.activity_neighbour_info_toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         ImageView profileImage = findViewById(R.id.activity_neighbour_info_toolbarImage);
         CollapsingToolbarLayout titleInToolbar = findViewById(R.id.activity_neighbour_info_collapsingToolbar);
@@ -63,57 +64,43 @@ public class NeightbourInfoActivity extends AppCompatActivity {
         neighbourPhoneNumber.setText(neighbour.getPhoneNumber());
         neighbourFacebookLink.setText("www.facebook.fr/" + neighbour.getName().toLowerCase(Locale.ROOT));
         neighbourAboutMe.setText(neighbour.getAboutMe());
-        Log.i("Monokouma", String.valueOf(neighbourRepository.getFavoriteNeighbours().contains(neighbour)));
 
-        neighbourAdress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String geoUri = "http://maps.google.com/maps?q=loc:" + neighbour.getAddress();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
-                startActivity(intent);
-            }
+        neighbourAdress.setOnClickListener(v -> {
+            String geoUri = "http://maps.google.com/maps?q=loc:" + neighbour.getAddress();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+            startActivity(intent);
         });
 
-        neighbourPhoneNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + neighbour.getPhoneNumber()));
-                startActivity(intent);
-            }
+        neighbourPhoneNumber.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + neighbour.getPhoneNumber()));
+            startActivity(intent);
         });
 
-        neighbourFacebookLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        neighbourFacebookLink.setOnClickListener(v -> {
 
+            try {
+                getPackageManager().getPackageInfo("com.facebook.katana", 0);
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, "Text...");
+                sharingIntent.setPackage("com.facebook.katana");
+                startActivity(sharingIntent);
+            } catch (PackageManager.NameNotFoundException e) {
                 try {
-                    Log.i("Monokouma", String.valueOf(getPackageManager().getPackageInfo("com.facebook.katana", 0)));
-                    getPackageManager().getPackageInfo("com.facebook.katana", 0);
-                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                    sharingIntent.setType("text/plain");
-                    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-                    sharingIntent.putExtra(Intent.EXTRA_TEXT, "Text...");
-                    sharingIntent.setPackage("com.facebook.katana");
-                    startActivity(sharingIntent);
-                } catch (PackageManager.NameNotFoundException e) {
-                    try {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.facebook.katana")));
-                    } catch (android.content.ActivityNotFoundException anfe) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.facebook.katana")));
-                    }
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.facebook.katana")));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.facebook.katana")));
                 }
             }
         });
 
-        updateFavorite(neighbour, addToFavoriteButton);
+       updateFavorite(neighbour, addToFavoriteButton);
 
-        addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                neighbourRepository.toggleNeighbourFavorite(neighbour.getId());
-                updateFavorite(neighbour, addToFavoriteButton);
-            }
+        addToFavoriteButton.setOnClickListener(v -> {
+            neighbourRepository.toggleNeighbourFavorite(neighbour.getId());
+            updateFavorite(neighbour, addToFavoriteButton);
         });
     }
 
@@ -127,13 +114,11 @@ public class NeightbourInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

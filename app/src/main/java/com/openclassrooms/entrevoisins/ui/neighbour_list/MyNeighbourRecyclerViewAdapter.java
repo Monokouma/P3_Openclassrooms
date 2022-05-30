@@ -50,20 +50,12 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Monokouma","clicked");
-                onNeightBourListener.onNeighbourClick(neighbour.getId());
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Log.i("Monokouma","clicked");
+            onNeightBourListener.onNeighbourClick(neighbour.getId());
         });
 
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
-            }
-        });
+        holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour)));
     }
 
     @Override

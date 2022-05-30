@@ -1,7 +1,5 @@
 package com.openclassrooms.entrevoisins.service;
 
-import android.util.Log;
-
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.List;
 public class DummyNeighbourRepository implements NeighbourRepository {
 
     private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
-    private final List<Neighbour> favNeightbours = new ArrayList<>();
+    private final List<Neighbour> favNeighbours = new ArrayList<>();
 
     /**
      * {@inheritDoc}
@@ -25,7 +23,7 @@ public class DummyNeighbourRepository implements NeighbourRepository {
 
     @Override
     public List<Neighbour> getFavoriteNeighbours() {
-        return favNeightbours;
+        return favNeighbours;
     }
 
     /**
@@ -38,7 +36,7 @@ public class DummyNeighbourRepository implements NeighbourRepository {
 
     @Override
     public void deleteFavNeighbour(Neighbour neighbour) {
-        favNeightbours.remove(neighbour);
+        favNeighbours.remove(neighbour);
     }
 
     /**
@@ -48,7 +46,6 @@ public class DummyNeighbourRepository implements NeighbourRepository {
     @Override
     public void createNeighbour(Neighbour neighbour) {
         neighbours.add(neighbour);
-
     }
 
     @Override
@@ -64,21 +61,19 @@ public class DummyNeighbourRepository implements NeighbourRepository {
     @Override
     public void toggleNeighbourFavorite(long id) {
         Neighbour favNeighbour = getNeighbourByID(id);
-        // TODO Thomas
         if (!isNeighbourFavorite(id)) {
-            favNeightbours.add(favNeighbour);
+            favNeighbours.add(favNeighbour);
+        } else {
+            favNeighbours.remove(favNeighbour);
         }
     }
 
     @Override
     public boolean isNeighbourFavorite(long id) {
-        for (Neighbour favNeighbour : favNeightbours) {
-            if (favNeighbour.getId() == id) {
-                return true;
-            }
+        Neighbour neighbour = getNeighbourByID(id);
+        if (favNeighbours.contains(neighbour)) {
+            return true;
         }
         return false;
     }
-
-
 }

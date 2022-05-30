@@ -12,7 +12,7 @@ public class DI {
 
     /**
      * Get an instance on @{@link NeighbourRepository}
-     * @return
+     * @return Ok
      */
     public static NeighbourRepository getNeighbourApiService() {
         return service;
@@ -20,7 +20,7 @@ public class DI {
 
     /**
      * Get always a new instance on @{@link NeighbourRepository}. Useful for tests, so we ensure the context is clean.
-     * @return
+     * @return Ok
      */
     public static NeighbourRepository getNewInstanceApiService() {
         return new DummyNeighbourRepository();

@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test on Neighbour service
@@ -40,4 +41,36 @@ public class NeighbourServiceTest {
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
     }
+
+    @Test
+    public void addNeighbourToFavoriteWithSuccess() {
+        Neighbour neighbourToAddToFavorite = service.getNeighbours().get(0);
+        service.toggleNeighbourFavorite(neighbourToAddToFavorite.getId());
+        assertTrue(service.getFavoriteNeighbours().contains(neighbourToAddToFavorite));
+    }
+
+    @Test
+    public void deleteNeighbourFromFavorite() {
+        Neighbour neighbourToRemoveFromFavorite = service.getNeighbours().get(0);
+        service.toggleNeighbourFavorite(neighbourToRemoveFromFavorite.getId());
+        service.deleteFavNeighbour(neighbourToRemoveFromFavorite);
+        assertFalse(service.getFavoriteNeighbours().contains(neighbourToRemoveFromFavorite));
+    }
+
+    @Test
+    public void removeNeighbourFromFavoriteOnly() {
+        Neighbour neighbourToCompare = service.getNeighbours().get(0);
+        service.toggleNeighbourFavorite(neighbourToCompare.getId());
+        service.deleteFavNeighbour(neighbourToCompare);
+        assertTrue(service.getNeighbours().contains(neighbourToCompare));
+    }
+
+    @Test
+    public void deleteFavNeighbourWithSuccess() {
+        Neighbour neighbourToDelete = service.getNeighbours().get(0);
+        service.toggleNeighbourFavorite(neighbourToDelete.getId());
+        service.deleteFavNeighbour(neighbourToDelete);
+        assertFalse(service.getFavoriteNeighbours().contains(neighbourToDelete));
+    }
+
 }
