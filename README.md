@@ -29,4 +29,6 @@ MacBook-Pro:~ Monokouma$ git clone https://github.com/Monokouma/P3_Openclassroom
 
 # Demo
 
-![Demo1](https://github.com/Monokouma/P3_Openclassrooms/blob/main/demo.gif)
+<p align=center> 
+  <img src="https://github.com/Monokouma/P3_Openclassrooms/blob/main/demo.gif" width="300">
+</p>
