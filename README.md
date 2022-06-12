@@ -27,4 +27,8 @@ MacBook-Pro:~ Monokouma$ git clone https://github.com/Monokouma/P3_Openclassroom
 - Une fois le projet cloné, ouvrez le avec android studio puis, synchroniser le .gradle pour télécharger les librairies
 ***
 
-# Enjoy
+# Demo
+
+<p align=center> 
+  <img src="https://github.com/Monokouma/P3_Openclassrooms/blob/main/demo.gif" width="300">
+</p>
