@@ -16,6 +16,10 @@ public interface NeighbourRepository {
      */
     List<Neighbour> getNeighbours();
 
+    /**
+     * Get all my favorite Neighbours
+     * @return {@link List}
+     */
     List<Neighbour> getFavoriteNeighbours();
 
     boolean isNeighbourFavorite(long id);
@@ -26,6 +30,10 @@ public interface NeighbourRepository {
      */
     void deleteNeighbour(Neighbour neighbour);
 
+    /**
+     * Deletes a favorite neighbour
+     * @param neighbour
+     */
     void deleteFavNeighbour(Neighbour neighbour);
 
     /**

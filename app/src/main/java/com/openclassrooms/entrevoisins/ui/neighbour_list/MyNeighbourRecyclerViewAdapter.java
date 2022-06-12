@@ -51,7 +51,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .into(holder.mNeighbourAvatar);
 
         holder.itemView.setOnClickListener(v -> {
-            Log.i("Monokouma","clicked");
             onNeightBourListener.onNeighbourClick(neighbour.getId());
         });
 

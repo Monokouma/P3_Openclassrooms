@@ -79,10 +79,7 @@ public class NeighbourFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
         initList();
-
         EventBus.getDefault().register(this);
     }
 
