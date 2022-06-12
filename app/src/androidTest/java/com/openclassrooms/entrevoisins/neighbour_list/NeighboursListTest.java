@@ -95,9 +95,11 @@ public class NeighboursListTest {
         myNeighboursList_clickAction_clickOnNeighbour_then_addToFavorite();
         pressBack();
         myNeighboursList_swipeAction_swipeLeftToFavList();
-        Thread.sleep(500);
+        //Thread.sleep(500);
+        wait(500);
         myNeighboursList_checkAction_isNeihbourNameMatching();
-        Thread.sleep(1000);
+        wait(1000);
+        //Thread.sleep(1000);
     }
 
     private void myNeighboursList_checkAction_isNeihbourNameMatching() {
